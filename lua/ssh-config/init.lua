@@ -18,11 +18,13 @@ local get_host_list = function()
 	if file then
 		local content = file:read("*a")
 		local lines = vim.split(content, "\n")
-		local host_list = require("ssh-config.utils").grep_lines("%f[%w]host%f[%W]", lines)
+		host_list = require("ssh-config.utils").grep_lines("%f[%w]host%f[%W]", lines)
+		local i = 1
 		for host in host_list do
 			if host == "*" then
-				table.remove(host_list, host)
+				table.remove(host_list, i)
 			end
+			i = i + 1
 		end
 		file:close()
 	end
