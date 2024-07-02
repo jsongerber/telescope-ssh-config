@@ -18,7 +18,8 @@ local get_host_list = function()
 	if file then
 		local content = file:read("*a")
 		local lines = vim.split(content, "\n")
-		host_list = require("ssh-config.utils").grep_lines("%f[%w]host%f[%W]", lines)
+		host_list = require("ssh-config.utils").grep_lines("%f[%w]host%f[%W]%s*.*$", lines)
+		vim.print(vim.inspect(host_list))
 		local i = 1
 		for host in host_list do
 			if host == "*" then
@@ -44,6 +45,7 @@ M.ssh_config = function(opts)
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
 					local ssh_host_infos = vim.fn.system("ssh -G " .. selection[1])
+					vim.print(vim.inspect(ssh_host_infos))
 
 					if vim.v.shell_error ~= 0 then
 						vim.notify("Error: " .. vim.inspect(ssh_host_infos), "error")

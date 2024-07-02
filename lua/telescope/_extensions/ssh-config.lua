@@ -4,7 +4,6 @@ return require("telescope").register_extension({
 	end,
 	exports = {
 		["ssh-config"] = function(opts)
-			vim.print(vim.inspect("tsss"))
 			require("ssh-config").ssh_config(opts)
 		end,
 	},
