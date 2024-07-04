@@ -4,6 +4,12 @@
 
 Easily start an SSH session from Neovim using Oil or Netrw.
 
+
+
+https://github.com/jsongerber/telescope-ssh-config/assets/18051702/3c50fa6a-747b-497a-9a7f-2a7199c0c535
+
+
+
 > [!NOTE]  
 > Tested on a fairly unsophisticated ssh_config file, see [ssh-config](#SSH-Config) for more information.
 
