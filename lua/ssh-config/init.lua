@@ -4,18 +4,64 @@ local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
+---@enum CMD
+local CMD = {
+	OIL = "oil",
+	NETRW = "netrw",
+}
+
+---@class Config
+---@field cmd CMD
+
 local M = {}
 
 M.config = {
-	cmd = "ssh",
+	cmd = "oil",
 }
 
+---@param config Config
 M.init_config = function(config)
 	config = config or {}
+
+	if config.cmd ~= nil then
+		assert(config.cmd == CMD.OIL or config.cmd == CMD.NETRW, "config.cmd must be either 'oil' or 'netrw'")
+	end
 
 	M.config = vim.tbl_extend("force", M.config, config)
 end
 
+---@param user string
+---@param hostname string
+---@param port string
+---@return string
+M.get_cmd = function(user, hostname, port)
+	if M.config.cmd == nil then
+		error("cmd is not set. Please call setup() first")
+	end
+
+	local url = ""
+	if user ~= nil then
+		url = user .. "@"
+	end
+
+	url = url .. hostname
+
+	if port ~= nil then
+		url = url .. ":" .. port
+	end
+
+	if "oil" == M.config.cmd then
+		return "Oil oil-ssh://" .. url .. "/"
+	end
+
+	if "netrw" == M.config.cmd then
+		return "e scp://" .. url .. "/"
+	end
+
+	error("cmd is not supported: " .. M.config.cmd)
+end
+
+---@param opts table
 M.ssh_config = function(opts)
 	opts = opts or {}
 	pickers
@@ -35,19 +81,16 @@ M.ssh_config = function(opts)
 					end
 
 					local user = require("ssh-config.utils").grep_lines(
-						{ "^user%f[%W]%s*(.*)", "^hostname%f[%W]%s*(.*)" },
+						{ "^user%f[%W]%s*(.*)", "^hostname%f[%W]%s*(.*)", "^port%f[%W]%s*(.*)" },
 						ssh_host_infos
 					)
-					if #user ~= 2 then
+					if #user ~= 3 then
 						vim.notify("Not enough data found for " .. selection[1], vim.log.levels.WARN)
 						return true
 					end
 
-					local config = require("telescope._extensions.ssh-config").config
-					vim.print(vim.inspect("---???????????"))
-					vim.print(M.config.cmd)
-					-- Execute :Oil oil-ssh://ssh <user>@<host>
-					vim.cmd("Oil oil-ssh://" .. user[1] .. "@" .. user[2] .. "/")
+					local cmd = M.get_cmd(user[1], user[2], user[3])
+					vim.cmd(cmd)
 				end)
 				return true
 			end,
