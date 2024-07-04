@@ -1,5 +1,3 @@
-Here is the generated Vim helpfile based on your `README.md`:
-
 ```help
 *telescope-ssh-config.txt*             For Neovim            Last change: 2024 July 04
 
@@ -20,14 +18,9 @@ Table of Contents                          *telescope-ssh-config-contents*
 ==============================================================================
 1. Introduction                           *telescope-ssh-config-introduction*
 
-> Don't ever type `ssh user@host:port` again (at least less often).
-
 Easily start an SSH session from Neovim using Oil or Netrw.
 
-> NOTE:
-> Tested on a fairly unsophisticated ssh_config file, see |telescope-ssh-config-ssh-config| for more information.
-
-See :h telescope-ssh-config if you are in Neovim.
+Tested on a fairly unsophisticated ssh_config file, see |telescope-ssh-config-ssh-config| for more information.
 
 ==============================================================================
 2. Usage                                         *telescope-ssh-config-usage*
