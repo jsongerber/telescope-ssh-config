@@ -93,9 +93,9 @@ use({
 ## ⚙ Configuration
 
 ```lua
--- This is the default configuration and can be ommited
 require('telescope').setup {
     extensions = {
+        -- This is the default configuration and can be ommited
         ['ssh-config'] = {
             cmd = 'oil',
             ssh_config_path = '~/.ssh/config',
@@ -143,3 +143,9 @@ Will do if there is demand (open issue or PR)
 ## 📜 License
 
 MIT © [jsongerber](https://github.com/jsongerber/thanks/blob/master/LICENSE)
+
+## Shameless plug
+
+See my other plugins:
+- [thanks.nvim](https://github.com/jsongerber/thanks.nvim): A plugin to show your appreciation to the maintainers of the plugin you use.
+- [nvim-px-to-rem](https://github.com/jsongerber/nvim-px-to-rem): A plugin to convert px to rem in Neovim.
