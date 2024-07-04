@@ -54,7 +54,7 @@ With [lazy.nvim](https://github.com/folke/lazy.nvim):
             extensions = {
                 -- This is default and can be omitted
                 ['ssh-config'] = {
-                    cmd = 'oil', -- or 'netrw'
+                    client = 'oil', -- or 'netrw'
                     ssh_config_path = '~/.ssh/config',
                 },
             },
@@ -85,7 +85,7 @@ use({
             extensions = {
                 -- This is default and can be omitted
                 ['ssh-config'] = {
-                    cmd = 'oil', -- or 'netrw'
+                    client = 'oil', -- or 'netrw'
                     ssh_config_path = '~/.ssh/config',
                 },
             },
@@ -108,7 +108,7 @@ use({
 require('telescope').setup {
     extensions = {
         ['ssh-config'] = {
-            cmd = 'oil',
+            client = 'oil',
             ssh_config_path = '~/.ssh/config',
         },
     },
@@ -117,7 +117,7 @@ require('telescope').setup {
 
 Option name       Type    Description                                           Default value
 --------------    ------  ----------------------------------------------------  ----------------
-`cmd`             String  The client to use to connect to the host. Can be     `'oil'`
+`client`             String  The client to use to connect to the host. Can be     `'oil'`
                            `oil` or `netrw`.
 `ssh_config_path` String  The path to the ssh config file you would like the   `'~/.ssh/config'`
                            hosts to be read from.

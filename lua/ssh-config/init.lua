@@ -4,27 +4,29 @@ local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
----@enum CMD
-local CMD = {
+---@enum Client
+local CLIENT = {
 	OIL = "oil",
 	NETRW = "netrw",
 }
 
 ---@class Config
----@field cmd CMD
-
+---@field client Client
 local M = {}
 
 M.config = {
-	cmd = "oil",
+	client = "oil",
 }
 
 ---@param config Config
 M.init_config = function(config)
 	config = config or {}
 
-	if config.cmd ~= nil then
-		assert(config.cmd == CMD.OIL or config.cmd == CMD.NETRW, "config.cmd must be either 'oil' or 'netrw'")
+	if config.client ~= nil then
+		assert(
+			config.client == CLIENT.OIL or config.client == CLIENT.NETRW,
+			"config.client must be either 'oil' or 'netrw'"
+		)
 	end
 
 	M.config = vim.tbl_extend("force", M.config, config)
@@ -34,9 +36,9 @@ end
 ---@param hostname string
 ---@param port string
 ---@return string
-M.get_cmd = function(user, hostname, port)
-	if M.config.cmd == nil then
-		error("cmd is not set. Please call setup() first")
+M.get_client = function(user, hostname, port)
+	if M.config.client == nil then
+		error("client is not set. Please call setup() first")
 	end
 
 	local url = ""
@@ -50,15 +52,15 @@ M.get_cmd = function(user, hostname, port)
 		url = url .. ":" .. port
 	end
 
-	if "oil" == M.config.cmd then
+	if "oil" == M.config.client then
 		return "Oil oil-ssh://" .. url .. "/"
 	end
 
-	if "netrw" == M.config.cmd then
+	if "netrw" == M.config.client then
 		return "e scp://" .. url .. "/"
 	end
 
-	error("cmd is not supported: " .. M.config.cmd)
+	error("client is not supported: " .. M.config.client)
 end
 
 ---@param opts table
@@ -89,8 +91,8 @@ M.ssh_config = function(opts)
 						return true
 					end
 
-					local cmd = M.get_cmd(user[1], user[2], user[3])
-					vim.cmd(cmd)
+					local client = M.get_client(user[1], user[2], user[3])
+					vim.client(client)
 				end)
 				return true
 			end,

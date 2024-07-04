@@ -4,11 +4,7 @@
 
 Easily start an SSH session from Neovim using Oil or Netrw.
 
-
-
 https://github.com/jsongerber/telescope-ssh-config/assets/18051702/3c50fa6a-747b-497a-9a7f-2a7199c0c535
-
-
 
 > [!NOTE]  
 > Tested on a fairly unsophisticated ssh_config file, see [ssh-config](#SSH-Config) for more information.
@@ -44,7 +40,7 @@ This plugin provides a single command, `:Telescope ssh-config`, which will open 
             extensions = {
                 -- This is default and can be ommited
                 ['ssh-config'] = {
-                    cmd = 'oil', -- or 'netrw'
+                    client = 'oil', -- or 'netrw'
                     ssh_config_path = '~/.ssh/config',
                 },
             },
@@ -75,7 +71,7 @@ use({
             extensions = {
                 -- This is default and can be ommited
                 ['ssh-config'] = {
-                    cmd = 'oil', -- or 'netrw'
+                    client = 'oil', -- or 'netrw'
                     ssh_config_path = '~/.ssh/config',
                 },
             },
@@ -97,7 +93,7 @@ require('telescope').setup {
     extensions = {
         -- This is the default configuration and can be ommited
         ['ssh-config'] = {
-            cmd = 'oil',
+            client = 'oil',
             ssh_config_path = '~/.ssh/config',
         },
     },
@@ -106,7 +102,7 @@ require('telescope').setup {
 
 | Option            | Type   | Description                                                               | Default value     |
 | ----------------- | ------ | ------------------------------------------------------------------------- | ----------------- |
-| `cmd`             | String | The client to use to connect to the host. Can be `oil` or `netrw`.        | `'oil'`           |
+| `client`          | String | The client to use to connect to the host. Can be `oil` or `netrw`.        | `'oil'`           |
 | `ssh_config_path` | String | The path to the ssh config file you would like the hosts to be read from. | `'~/.ssh/config'` |
 
 ## 🧰 Commands
@@ -147,5 +143,6 @@ MIT © [jsongerber](https://github.com/jsongerber/thanks/blob/master/LICENSE)
 ## Shameless plug
 
 See my other plugins:
-- [thanks.nvim](https://github.com/jsongerber/thanks.nvim): A plugin to show your appreciation to the maintainers of the plugin you use.
-- [nvim-px-to-rem](https://github.com/jsongerber/nvim-px-to-rem): A plugin to convert px to rem in Neovim.
+
+-   [thanks.nvim](https://github.com/jsongerber/thanks.nvim): A plugin to show your appreciation to the maintainers of the plugin you use.
+-   [nvim-px-to-rem](https://github.com/jsongerber/nvim-px-to-rem): A plugin to convert px to rem in Neovim.
