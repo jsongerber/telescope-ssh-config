@@ -12,10 +12,12 @@ local CLIENT = {
 
 ---@class Config
 ---@field client Client
+---@field ssh_config_path string
 local M = {}
 
 M.config = {
 	client = "oil",
+	ssh_config_path = "~/.ssh/config",
 }
 
 ---@param config Config
@@ -69,7 +71,9 @@ M.ssh_config = function(opts)
 	pickers
 		.new(opts, {
 			prompt_title = "Select a host",
-			finder = finders.new_table({ results = require("ssh-config.utils").get_host_list() }),
+			finder = finders.new_table({
+				results = require("ssh-config.utils").get_host_list(M.config.ssh_config_path),
+			}),
 			sorter = conf.generic_sorter(opts),
 			attach_mappings = function(prompt_bufnr, _)
 				actions.select_default:replace(function()
