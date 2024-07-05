@@ -36,7 +36,7 @@ end
 ---@param hostname string
 ---@param port string
 ---@return string
-M.get_client = function(user, hostname, port)
+M.get_cmd = function(user, hostname, port)
 	if M.config.client == nil then
 		error("client is not set. Please call setup() first")
 	end
@@ -91,8 +91,8 @@ M.ssh_config = function(opts)
 						return true
 					end
 
-					local client = M.get_client(user[1], user[2], user[3])
-					vim.client(client)
+					local cmd = M.get_cmd(user[1], user[2], user[3])
+					vim.cmd(cmd)
 				end)
 				return true
 			end,
