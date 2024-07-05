@@ -19,18 +19,20 @@ M.grep_lines = function(patterns, lines)
 end
 
 ---@return string[]
-M.get_host_list = function()
-	local host_file = "~/.ssh/config"
+M.get_host_list = function(ssh_config_path)
+	local host_file = ssh_config_path
 	local host_list = {}
 
 	-- read the file
 	local file = io.open(vim.fn.expand(host_file), "r")
-	if file then
-		local content = file:read("*a")
-		file:close()
-		local lines = vim.split(content, "\n")
-		host_list = M.grep_lines({ "%f[%w]host%f[%W]%s*([^*]*)$" }, lines)
+	if not file then
+		error("Could not open file: " .. host_file)
 	end
+
+	local content = file:read("*a")
+	file:close()
+	local lines = vim.split(content, "\n")
+	host_list = M.grep_lines({ "%f[%w]host%f[%W]%s*([^*]*)$" }, lines)
 
 	return host_list
 end
